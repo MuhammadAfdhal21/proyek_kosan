@@ -9,12 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class KostController extends Controller
 {
-        public function index()
-    {
-        // Ambil data kosan milik pemilik yang login (jika ada filter pemilik)
-        $kosts = Kosan::paginate(10);
-        return view('pages.pemilik-kost.data-kost.index', compact('kosts'));
+
+    public function index()
+{
+    $pemilik = auth()->user()->pemilik_kosan;
+
+    if (!$pemilik) {
+        return redirect()->back()->with('error', 'Data pemilik tidak ditemukan.');
     }
+
+    $kosts = Kosan::where('pemilik_kosan_id', $pemilik->id)->latest()->paginate(6);
+
+    return view('pages.pemilik-kost.data-kost.index', compact('kosts'));
+}
+
 
     public function store(Request $request)
 {
@@ -33,7 +41,12 @@ class KostController extends Controller
     }
 
     // Tambahkan ID pemilik dari user yang login
-    $validated['pemilik_kosan_id'] = auth()->user()->id;
+    $validated['pemilik_kosan_id'] = auth()->user()->pemilik_kosan->id ?? null;
+
+    if (!$validated['pemilik_kosan_id']) {
+    return redirect()->back()->with('error', 'Data pemilik tidak ditemukan. Silakan lengkapi profil terlebih dahulu.');
+}
+
 
     Kosan::create($validated);
 
