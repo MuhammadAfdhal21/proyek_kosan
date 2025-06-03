@@ -48,7 +48,7 @@ Route::prefix('pemilik')->middleware(['auth', 'users:pemilik'])->name('pemilik.'
     // CRUD Kosan
     Route::get('/kost', [KostController::class, 'index'])->name('kost.index');
     Route::post('/kost/store', [KostController::class, 'store'])->name('kost.store');
-    Route::post('/kost/update/{id}', [KostController::class, 'update'])->name('kost.update');
+    Route::put('/kost/update/{id}', [KostController::class, 'update'])->name('kost.update');
     Route::delete('/kost/delete/{id}', [KostController::class, 'destroy'])->name('kost.destroy');
 
     // Transaksi
