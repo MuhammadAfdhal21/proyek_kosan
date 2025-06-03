@@ -25,7 +25,7 @@
                 <label for="role">Role</label>
                 <select name="role" id="role" class="form-control" required>
                     <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
+                    <option value="penyewa" {{ $user->role === 'penyewa' ? 'selected' : '' }}>Penyewa</option>
                     <option value="pemilik" {{ $user->role === 'pemilik' ? 'selected' : '' }}>Pemilik</option>
                 </select>
             </div>
