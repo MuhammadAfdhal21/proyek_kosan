@@ -56,7 +56,7 @@ class UserController extends Controller
             'email'                 => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'password'              => 'nullable|string|min:6|confirmed',
             'password_confirmation' => 'nullable|string|min:6',
-            'role'                  => 'required|string|in:admin,user,',
+            'role'                  => 'required|string|in:admin,penyewa,pemilik',
         ]);
 
         $user->name = $validated['name'];
